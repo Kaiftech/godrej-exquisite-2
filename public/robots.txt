@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://godrej-exquisite-thane.com/sitemap.xml
