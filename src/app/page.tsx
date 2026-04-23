@@ -88,7 +88,7 @@ export default function LandingPage() {
     const payload = {
       name: formData.name,
       mobile: formData.mobile,
-      city: formData.configuration, // CRM expects configuration in city field
+      city: formData.configuration, 
       source: "Website Popup",
       project: "Godrej Exquisite"
     };
@@ -105,12 +105,9 @@ export default function LandingPage() {
       if (response.ok) {
         router.push("/thank-you");
       } else {
-        // Fallback to redirection even if webhook fails (better UX)
-        console.error("Webhook submission failed");
         router.push("/thank-you");
       }
     } catch (error) {
-      console.error("Error submitting form:", error);
       router.push("/thank-you");
     } finally {
       setIsSubmitting(false);
@@ -168,7 +165,7 @@ export default function LandingPage() {
                 </h3>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <input 
-                    className="w-full border-b border-slate-200 py-3 text-sm outline-none focus:border-[#c3aa62] transition-colors bg-transparent" 
+                    className="w-full border-b border-slate-200 py-3 text-sm outline-none focus:border-[#c3aa62] transition-colors bg-transparent font-medium" 
                     placeholder="Name" 
                     type="text" 
                     required 
@@ -178,7 +175,7 @@ export default function LandingPage() {
                   <div className="flex items-center border-b border-slate-200 focus-within:border-[#c3aa62] transition-colors">
                     <div className="flex items-center gap-2 pr-4 border-r border-slate-100 text-sm font-bold text-slate-400">🇮🇳 +91</div>
                     <input 
-                      className="w-full p-3 text-sm outline-none bg-transparent" 
+                      className="w-full p-3 text-sm outline-none bg-transparent font-medium" 
                       placeholder="Enter Phone Number" 
                       type="tel" 
                       required 
@@ -188,7 +185,7 @@ export default function LandingPage() {
                   </div>
                   <div className="relative border-b border-slate-200 focus-within:border-[#c3aa62] transition-colors">
                     <select 
-                      className="w-full py-3 text-sm outline-none bg-transparent appearance-none text-slate-600" 
+                      className="w-full py-3 text-sm outline-none bg-transparent appearance-none text-slate-600 font-medium" 
                       required
                       value={formData.configuration}
                       onChange={(e) => setFormData({...formData, configuration: e.target.value})}
@@ -205,7 +202,7 @@ export default function LandingPage() {
                     <button 
                       type="submit" 
                       disabled={isSubmitting}
-                      className="bg-[#c3aa62] text-white px-10 py-3 font-bold uppercase tracking-[0.2em] text-[11px] shadow-xl hover:brightness-110 active:scale-95 transition-all flex items-center gap-3"
+                      className="bg-[#c3aa62] text-white px-10 py-4 font-bold uppercase tracking-[0.2em] text-[11px] shadow-xl hover:brightness-110 active:scale-95 transition-all flex items-center gap-3 rounded-sm"
                     >
                       {isSubmitting ? (
                         <>
@@ -238,9 +235,12 @@ export default function LandingPage() {
 
       {/* Navbar */}
       <header className="bg-white/95 backdrop-blur-md sticky top-0 z-[100] shadow-sm w-full border-b border-slate-50">
-        <div className="max-w-[1536px] mx-auto px-6 md:px-16 py-3 flex justify-between items-center">
-          <img src="/logo.svg" alt="Godrej Exquisite Logo" className="h-11 md:h-12" />
-          <nav className="hidden lg:flex items-center gap-10 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
+        <div className="max-w-[1536px] mx-auto px-4 md:px-8 lg:px-16 py-3 flex justify-between items-center">
+          <img 
+            onContextMenu={(e) => e.preventDefault()}
+            src="/logo.svg" alt="Godrej Exquisite Logo" className="h-9 md:h-11 lg:h-12" 
+          />
+          <nav className="hidden lg:flex items-center gap-8 lg:gap-10 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
             <a href="#overview" className="hover:text-[#c3aa62] transition-colors">Overview</a>
             <a href="#pricing" className="hover:text-[#c3aa62] transition-colors">Pricing</a>
             <a href="#plans" className="hover:text-[#c3aa62] transition-colors">Plans</a>
@@ -248,7 +248,7 @@ export default function LandingPage() {
             <a href="#location" className="hover:text-[#c3aa62] transition-colors">Location</a>
             <button onClick={() => setShowPopup(true)} className="bg-[#c3aa62] text-white px-8 py-2.5 rounded-sm text-[10px] shadow-lg hover:brightness-110 transition-all">Brochure</button>
           </nav>
-          <button className="lg:hidden text-[#c3aa62]" onClick={() => setIsMenuOpen(true)} aria-label="Open Menu"><Menu className="w-6 h-6" /></button>
+          <button className="lg:hidden text-[#c3aa62] p-2" onClick={() => setIsMenuOpen(true)} aria-label="Open Menu"><Menu className="w-6 h-6" /></button>
         </div>
       </header>
 
@@ -257,11 +257,14 @@ export default function LandingPage() {
         {isMenuOpen && (
           <motion.div initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }} className="fixed inset-0 z-[150] bg-white p-10 flex flex-col gap-10 lg:hidden">
             <div className="flex justify-between items-center mb-10">
-              <img src="/logo.svg" alt="Godrej Exquisite Logo" className="h-12" />
-              <button onClick={() => setIsMenuOpen(false)} aria-label="Close Menu"><X className="w-10 h-10 text-[#c3aa62]" /></button>
+              <img 
+                onContextMenu={(e) => e.preventDefault()}
+                src="/logo.svg" alt="Godrej Exquisite Logo" className="h-10" 
+              />
+              <button onClick={() => setIsMenuOpen(false)} aria-label="Close Menu"><X className="w-8 h-8 text-[#c3aa62]" /></button>
             </div>
             {["Overview", "Pricing", "Plans", "Amenities", "Location"].map((item) => (
-              <a key={item} href={`#${item.toLowerCase().replace(' ', '')}`} onClick={() => setIsMenuOpen(false)} className="text-2xl font-bold text-slate-800 border-b border-slate-50 pb-6 uppercase tracking-tighter">
+              <a key={item} href={`#${item.toLowerCase().replace(' ', '')}`} onClick={() => setIsMenuOpen(false)} className="text-xl md:text-2xl font-bold text-slate-800 border-b border-slate-50 pb-6 uppercase tracking-tighter">
                 {item}
               </a>
             ))}
@@ -271,8 +274,8 @@ export default function LandingPage() {
 
       <main className="w-full flex flex-col">
         {/* Hero Section */}
-        <section className="relative min-h-[600px] lg:h-[850px] flex flex-col lg:block overflow-hidden bg-slate-100">
-          <div className="h-[350px] lg:absolute lg:inset-0 lg:h-full w-full">
+        <section className="relative min-h-[500px] md:min-h-[600px] lg:h-[850px] flex flex-col lg:block overflow-hidden bg-slate-100">
+          <div className="h-[300px] md:h-[400px] lg:absolute lg:inset-0 lg:h-full w-full">
             <AnimatePresence mode="wait">
               <motion.img 
                 key={currentBanner}
@@ -283,48 +286,54 @@ export default function LandingPage() {
                 transition={{ duration: 1 }}
                 className="w-full h-full object-cover" 
                 alt="Godrej Exquisite Thane Luxury Exterior View" 
+                onContextMenu={(e) => e.preventDefault()}
               />
             </AnimatePresence>
             <div className="absolute inset-0 bg-black/20" />
           </div>
           
-          <div className="relative w-full lg:max-w-[1536px] mx-auto h-full flex items-center px-0 lg:px-16 pointer-events-none">
-            {/* Edge-to-edge on Mobile (w-full), Fixed width on Desktop (lg:w-[320px]) */}
-            <div className="bg-white shadow-2xl w-full lg:w-[320px] overflow-hidden lg:border border-slate-100 flex flex-col justify-center pointer-events-auto lg:my-4 animate-in fade-in slide-in-from-bottom-10 duration-1000">
-              <div className="p-8 md:p-8 text-center space-y-4">
+          <div className="relative w-full lg:max-w-[1536px] mx-auto h-full flex items-center px-4 md:px-8 lg:px-16 pointer-events-none">
+            <div 
+              style={{ transform: "translateY(-15px)" }}
+              className="bg-white shadow-2xl w-full lg:w-[340px] overflow-hidden lg:border border-slate-100 flex flex-col justify-center pointer-events-auto lg:my-4 animate-in fade-in slide-in-from-bottom-10 duration-1000"
+            >
+              <div className="p-6 md:p-8 text-center space-y-6">
                 <div className="space-y-1">
                   <div className="flex justify-center">
-                    <p className="bg-[#c3aa62] text-white py-1.5 px-10 font-bold uppercase tracking-[0.2em] text-sm">BOOKING OPEN</p>
+                    <p className="bg-[#c3aa62] text-white py-1.5 px-8 md:px-10 font-bold uppercase tracking-[0.2em] text-[10px] md:text-xs">BOOKING OPEN</p>
                   </div>
                   <h1 className="text-2xl md:text-3xl font-bold text-slate-900 leading-tight pt-3">Godrej Exquisite</h1>
-                  <p className="text-base md:text-lg font-medium text-slate-800">At Thane, Mumbai</p>
+                  <p className="text-sm md:text-base font-semibold text-slate-700 tracking-wide">At Thane, Mumbai</p>
                 </div>
                 
-                <div className="bg-[#F7F7F7] p-5 text-center space-y-1.5 text-slate-800 text-sm md:text-base font-medium">
-                  <p>Land Parcel 4 Acres</p>
-                  <p>Towers 3 Towers</p>
-                  <p>Possession 2029</p>
-                  <p>25:75 Relaxed Plan</p>
+                <div className="bg-[#F9F9F9] p-4 md:p-5 text-center space-y-2 text-slate-600 text-xs md:text-sm font-bold uppercase tracking-wider">
+                  <p>Land Parcel <span className="text-slate-900">4 Acres</span></p>
+                  <p>Towers <span className="text-slate-900">3 Towers</span></p>
+                  <p>Possession <span className="text-slate-900">2029</span></p>
+                  <p>Payment <span className="text-slate-900">25:75 Plan</span></p>
                 </div>
 
-                <div className="space-y-2.5">
-                   <button onClick={() => setShowPopup(true)} className="w-full bg-[#332c1a] text-white py-3 font-bold text-sm shadow-lg">Spot Booking Offer</button>
+                <div className="space-y-2.5 py-1">
+                   <button onClick={() => setShowPopup(true)} className="w-full bg-[#c3aa62] text-white py-3 font-bold uppercase tracking-[0.15em] text-[9px] md:text-[10px] shadow-sm hover:brightness-110 transition-all">Spot Booking Offer</button>
                    <div className="flex justify-center">
-                     <button onClick={() => setShowPopup(true)} className="w-[90%] bg-[#4A412A] text-white py-3 font-bold text-sm shadow-lg">25X4 Payment Plan</button>
+                     <button onClick={() => setShowPopup(true)} className="w-[92%] bg-[#332c1a] text-white py-3 font-bold uppercase tracking-[0.15em] text-[9px] md:text-[10px] shadow-sm hover:brightness-110 transition-all">25X4 Payment Plan</button>
                    </div>
                    <div className="flex justify-center">
-                     <button onClick={() => setShowPopup(true)} className="w-[75%] bg-[#F7F7F7] text-slate-400 py-2.5 font-bold text-[10px]">Stamp Duty Benefit</button>
+                     <button onClick={() => setShowPopup(true)} className="w-[84%] bg-[#4A412A] text-white py-3 font-bold uppercase tracking-[0.15em] text-[9px] md:text-[10px] shadow-sm hover:brightness-110 transition-all">Stamp Duty Benefit</button>
                    </div>
                 </div>
 
-                <div className="space-y-1 pt-2">
-                  <p className="text-sm md:text-base font-medium text-slate-800">Premium 2 & 3 BHK Homes With Balcony</p>
-                  <p className="text-xs md:text-sm font-medium text-slate-700">Starting Price</p>
-                  <p className="text-2xl md:text-3xl font-bold text-[#c3aa62]">₹ 1.79 Cr* Onwards</p>
+                <div className="space-y-1 pt-1">
+                  <p className="text-[10px] md:text-[11px] font-bold text-[#c3aa62] uppercase tracking-[0.25em] mb-1">New Launch</p>
+                  <p className="text-sm md:text-base font-bold text-slate-800 leading-tight">Premium 2 & 3 BHK Homes With Balcony</p>
+                  <div className="pt-2">
+                    <p className="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-widest">Starting Price</p>
+                    <p className="text-3xl md:text-4xl font-black text-[#c3aa62] tracking-tighter">₹ 1.79 Cr*</p>
+                  </div>
                 </div>
 
                 <div className="pt-2">
-                   <button onClick={() => setShowPopup(true)} className="bg-[#c3aa62] text-white w-full py-4 rounded-sm text-base md:text-lg font-bold shadow-xl hover:brightness-110 active:scale-95 transition-all">
+                   <button onClick={() => setShowPopup(true)} className="bg-[#c3aa62] text-white w-full py-4 rounded-sm text-sm md:text-base lg:text-lg font-black uppercase tracking-widest shadow-xl hover:brightness-110 active:scale-95 transition-all">
                      Enquire Now
                    </button>
                 </div>
@@ -334,52 +343,55 @@ export default function LandingPage() {
         </section>
 
         {/* Overview */}
-        <section id="overview" className="py-12 md:py-16 bg-white w-full">
-          <div className="max-w-[1536px] mx-auto px-6 grid lg:grid-cols-2 gap-10 items-center">
-            <div className="space-y-6">
-              <div className="space-y-3">
-                <h2 className="text-3xl md:text-5xl font-bold text-slate-900 uppercase tracking-tighter">Overview</h2>
-                <div className="w-16 h-1 bg-[#c3aa62]" />
+        <section id="overview" className="py-16 md:py-24 bg-white w-full">
+          <div className="max-w-[1536px] mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div className="space-y-8">
+              <div className="space-y-4">
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 uppercase tracking-tighter leading-none">Overview</h2>
+                <div className="w-20 h-1.5 bg-[#c3aa62]" />
               </div>
-              <p className="text-lg md:text-2xl text-slate-600 leading-relaxed font-light italic">
+              <p className="text-xl md:text-2xl lg:text-3xl text-slate-600 leading-relaxed font-light italic">
                 Godrej Exquisite is located off the main stretch of Ghodbunder Road, Thane. Spread over 4 acres of land with 3 magnificent towers having 2 and 3 BHK residences, this project offers you an exclusive lifestyle right from your apartment to the amenities where each tower comes with its own set of rooftop amenities. Be it a Rooftop Horizon Pool, Skyscape Gym or the luxury of no shared walls between homes, come, indulge in a world crafted exclusively for you.
               </p>
             </div>
-            <div className="relative aspect-video overflow-hidden shadow-2xl rounded-sm">
-               <img src="/BANNER1.jpeg" className="w-full h-full object-cover" alt="Godrej Exquisite Aerial View" />
-               <div className="absolute inset-0 bg-black/10" />
+            <div className="relative aspect-video overflow-hidden shadow-2xl rounded-sm cursor-pointer group" onClick={() => setShowPopup(true)}>
+               <img 
+                 onContextMenu={(e) => e.preventDefault()}
+                 src="/BANNER1.jpeg" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" alt="Godrej Exquisite Aerial View" 
+               />
+               <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors" />
             </div>
           </div>
         </section>
 
         {/* Pricing */}
-        <section id="pricing" className="py-12 md:py-16 bg-[#FCFCFC] border-y border-slate-50 px-6 w-full">
-          <div className="max-w-[1536px] mx-auto space-y-10">
-            <div className="text-center space-y-2">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 uppercase tracking-tighter">Price List</h2>
-              <div className="w-20 h-1 bg-[#c3aa62] mx-auto" />
+        <section id="pricing" className="py-16 md:py-24 bg-[#FCFCFC] border-y border-slate-50 px-6 w-full">
+          <div className="max-w-[1536px] mx-auto space-y-12 md:space-y-16">
+            <div className="text-center space-y-3">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 uppercase tracking-tighter">Price List</h2>
+              <p className="text-[10px] md:text-[11px] font-bold text-[#c3aa62] uppercase tracking-[0.4em]">Transparent & Exclusive</p>
             </div>
-            <div className="grid lg:grid-cols-[1.5fr_1fr] gap-8 items-start">
-              <div className="space-y-4">
+            <div className="grid lg:grid-cols-[1.6fr_1fr] gap-10 md:gap-16 items-start">
+              <div className="space-y-6">
                 {/* Desktop Table */}
-                <div className="hidden lg:block overflow-x-auto shadow-2xl border border-slate-50 bg-white">
-                  <table className="w-full text-left text-sm">
-                    <thead className="bg-slate-50 uppercase text-[9px] font-black tracking-widest text-slate-400">
+                <div className="hidden md:block overflow-x-auto shadow-2xl border border-slate-50 bg-white rounded-sm">
+                  <table className="w-full text-left">
+                    <thead className="bg-slate-50 uppercase text-[10px] font-black tracking-[0.2em] text-slate-400">
                       <tr>
-                        <th className="p-6">Type</th>
-                        <th className="p-6">Carpet Area</th>
-                        <th className="p-6">Price</th>
-                        <th className="p-6">Action</th>
+                        <th className="p-8">Type</th>
+                        <th className="p-8 text-center">Carpet Area</th>
+                        <th className="p-8 text-center">Price</th>
+                        <th className="p-8 text-right">Action</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-50 font-bold">
                       {pricingData.map((item, i) => (
                         <tr key={i} className="hover:bg-slate-50 transition-colors">
-                          <td className="p-6 text-slate-900 text-base">{item.type}</td>
-                          <td className="p-6 text-slate-500">{item.area}</td>
-                          <td className="p-6 text-[#c3aa62] font-black text-lg">{item.price}</td>
-                          <td className="p-6">
-                            <button onClick={() => setShowPopup(true)} className="bg-[#c3aa62] text-white px-6 py-2 text-[10px] font-bold uppercase tracking-wider shadow-lg hover:scale-105 transition-all">Enquire</button>
+                          <td className="p-8 text-slate-900 text-lg lg:text-xl font-black">{item.type}</td>
+                          <td className="p-8 text-slate-500 text-center font-medium">{item.area}</td>
+                          <td className="p-8 text-[#c3aa62] font-black text-xl lg:text-2xl text-center">{item.price}</td>
+                          <td className="p-8 text-right">
+                            <button onClick={() => setShowPopup(true)} className="bg-[#c3aa62] text-white px-8 py-3 text-[10px] font-bold uppercase tracking-widest shadow-lg hover:brightness-110 transition-all rounded-sm">Enquire</button>
                           </td>
                         </tr>
                       ))}
@@ -387,33 +399,41 @@ export default function LandingPage() {
                   </table>
                 </div>
                 {/* Mobile Cards */}
-                <div className="lg:hidden space-y-4">
+                <div className="md:hidden space-y-6">
                   {pricingData.map((item, i) => (
-                    <div key={i} className="bg-white p-6 shadow-xl border border-slate-50 rounded-sm flex flex-col gap-4">
+                    <div key={i} className="bg-white p-8 shadow-xl border border-slate-50 rounded-sm flex flex-col gap-6">
                       <div className="flex justify-between items-start">
                          <div>
-                            <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest">Type</p>
-                            <p className="text-lg font-bold text-slate-900">{item.type}</p>
+                            <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest mb-1">Type</p>
+                            <p className="text-xl font-black text-slate-900">{item.type}</p>
                          </div>
                          <div className="text-right">
-                            <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest">Price</p>
-                            <p className="text-xl font-black text-[#c3aa62]">{item.price}</p>
+                            <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest mb-1">Price</p>
+                            <p className="text-2xl font-black text-[#c3aa62]">{item.price}</p>
                          </div>
                       </div>
-                      <div className="flex justify-between items-center pt-4 border-t border-slate-50">
+                      <div className="flex justify-between items-center pt-6 border-t border-slate-50">
                          <div>
-                            <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest">Carpet Area</p>
-                            <p className="text-sm font-bold text-slate-500">{item.area}</p>
+                            <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest mb-1">Carpet Area</p>
+                            <p className="text-base font-bold text-slate-500">{item.area}</p>
                          </div>
-                         <button onClick={() => setShowPopup(true)} className="bg-[#c3aa62] text-white px-6 py-2.5 text-[10px] font-bold uppercase tracking-widest shadow-lg">Enquire</button>
+                         <button onClick={() => setShowPopup(true)} className="bg-[#c3aa62] text-white px-8 py-3 text-[11px] font-black uppercase tracking-widest shadow-lg">Enquire</button>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
-              <div onClick={() => setShowPopup(true)} className="group cursor-pointer overflow-hidden bg-white shadow-2xl border border-slate-50 rounded-sm p-3 flex flex-col">
-                <img src="/prcing table.jpeg" className="w-full aspect-[16/9] object-cover blur-[5px]" alt="Godrej Exquisite Full Pricing Table" />
-                <div className="bg-[#c3aa62] text-white py-4 text-center font-bold uppercase tracking-widest text-[11px] group-hover:brightness-110 transition-all">
+              <div onClick={() => setShowPopup(true)} className="group cursor-pointer overflow-hidden bg-white shadow-2xl border border-slate-50 rounded-sm p-4 flex flex-col">
+                <div className="relative aspect-video overflow-hidden">
+                  <img 
+                    onContextMenu={(e) => e.preventDefault()}
+                    src="/prcing table.jpeg" className="w-full h-full object-cover blur-[5px] group-hover:scale-110 transition-transform duration-1000" alt="Godrej Exquisite Full Pricing Table" 
+                  />
+                  <div className="absolute inset-0 bg-black/10 flex items-center justify-center">
+                    <p className="text-white text-[10px] font-black uppercase tracking-[0.4em] bg-black/40 px-6 py-2 backdrop-blur-sm">View Complete Price Breakup</p>
+                  </div>
+                </div>
+                <div className="bg-[#c3aa62] text-white py-5 text-center font-black uppercase tracking-[0.2em] text-[11px] group-hover:brightness-110 transition-all">
                   Click To Unlock Full Pricing
                 </div>
               </div>
@@ -422,19 +442,22 @@ export default function LandingPage() {
         </section>
 
         {/* Floor Plans */}
-        <section id="plans" className="py-12 md:py-16 bg-white px-6 w-full">
-          <div className="max-w-[1536px] mx-auto space-y-10">
-            <div className="text-center space-y-2">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 uppercase tracking-tighter">Floor Plans</h2>
-              <p className="text-[10px] font-bold text-[#c3aa62] uppercase tracking-[0.4em]">Expert Architectural Layout</p>
+        <section id="plans" className="py-16 md:py-24 bg-white px-6 w-full">
+          <div className="max-w-[1536px] mx-auto space-y-12 md:space-y-16">
+            <div className="text-center space-y-3">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 uppercase tracking-tighter leading-none">Floor Plans</h2>
+              <p className="text-[10px] md:text-[11px] font-bold text-[#c3aa62] uppercase tracking-[0.4em]">Expert Architectural Layout</p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
               {floorPlans.map((item, i) => (
-                <div key={i} className="space-y-3">
-                  <div className="border border-slate-50 p-4 bg-white shadow-lg cursor-pointer" onClick={() => setShowPopup(true)}>
-                    <img src={item.img} className="w-full aspect-[4/5] object-contain blur-[4px]" alt={`Godrej Exquisite ${item.name} Floor Plan`} />
+                <div key={i} className="group flex flex-col">
+                  <div className="border border-slate-100 p-6 bg-white shadow-xl cursor-pointer group-hover:shadow-2xl transition-all duration-500 overflow-hidden" onClick={() => setShowPopup(true)}>
+                    <img 
+                      onContextMenu={(e) => e.preventDefault()}
+                      src={item.img} className="w-full aspect-[4/5] object-contain blur-[4px] group-hover:scale-110 transition-transform duration-1000" alt={`Godrej Exquisite ${item.name} Floor Plan`} 
+                    />
                   </div>
-                  <div className="bg-slate-900 text-white text-[9px] font-bold uppercase py-3 text-center tracking-widest shadow-md">
+                  <div className="mt-4 bg-slate-900 text-white text-[10px] font-black uppercase py-4 text-center tracking-[0.2em] shadow-md group-hover:bg-[#c3aa62] transition-colors">
                     {item.name}
                   </div>
                 </div>
@@ -444,17 +467,20 @@ export default function LandingPage() {
         </section>
 
         {/* Gallery */}
-        <section id="amenities" className="py-12 md:py-16 bg-[#FCFCFC] border-y border-slate-50 px-6 w-full">
-          <div className="max-w-[1536px] mx-auto space-y-10">
-            <div className="text-center space-y-2">
-              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 uppercase tracking-tighter">Gallery</h2>
-              <p className="text-[10px] font-bold text-[#c3aa62] uppercase tracking-[0.3em]">Life at Godrej Exquisite</p>
+        <section id="amenities" className="py-16 md:py-24 bg-[#FCFCFC] border-y border-slate-50 px-6 w-full">
+          <div className="max-w-[1536px] mx-auto space-y-12 md:space-y-16">
+            <div className="text-center space-y-3">
+              <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold text-slate-900 uppercase tracking-tighter leading-none">Gallery</h2>
+              <p className="text-[10px] md:text-[11px] font-bold text-[#c3aa62] uppercase tracking-[0.3em]">Life at Godrej Exquisite</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {galleryImages.map((img, i) => (
-                <div key={i} className="relative aspect-[4/3] overflow-hidden shadow-2xl border-2 border-white group cursor-pointer" onClick={() => setShowPopup(true)}>
-                  <img src={img} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" alt={`Godrej Exquisite Luxury Amenity ${i+1}`} />
-                  <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div key={i} className="relative aspect-[4/3] overflow-hidden shadow-2xl border-[6px] border-white group cursor-pointer" onClick={() => setShowPopup(true)}>
+                  <img 
+                    onContextMenu={(e) => e.preventDefault()}
+                    src={img} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" alt={`Godrej Exquisite Luxury Amenity ${i+1}`} 
+                  />
+                  <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-all duration-500" />
                 </div>
               ))}
             </div>
@@ -462,64 +488,92 @@ export default function LandingPage() {
         </section>
 
         {/* Location */}
-        <section id="location" className="py-12 md:py-16 bg-white px-6 w-full">
-          <div className="max-w-[1536px] mx-auto space-y-12">
-            <div className="text-center space-y-2">
-              <h2 className="text-4xl md:text-6xl font-bold text-slate-900 uppercase tracking-tighter">Location</h2>
-              <div className="flex items-center justify-center gap-4 text-[10px] font-black text-[#c3aa62] uppercase tracking-[0.4em]">
-                 <MapPin className="w-4 h-4" />
+        <section id="location" className="py-16 md:py-24 bg-white px-6 w-full">
+          <div className="max-w-[1536px] mx-auto space-y-16 lg:space-y-24">
+            <div className="text-center space-y-4">
+              <h2 className="text-4xl md:text-6xl lg:text-8xl font-bold text-slate-900 uppercase tracking-tighter leading-none">Location</h2>
+              <div className="flex items-center justify-center gap-4 text-[10px] md:text-[12px] font-black text-[#c3aa62] uppercase tracking-[0.4em]">
+                 <MapPin className="w-5 h-5" />
                  <span>Ghodbunder Road, Thane West</span>
               </div>
             </div>
             
-            <div className="grid lg:grid-cols-[1.5fr_1fr] gap-12 items-center">
-              <div className="w-full h-[400px] md:h-[550px] border-4 border-slate-50 shadow-2xl relative overflow-hidden">
+            <div className="grid lg:grid-cols-[1.4fr_1fr] gap-12 lg:gap-24 items-center">
+              <div 
+                className="w-full h-[400px] md:h-[600px] lg:h-[700px] border-[10px] border-slate-50 shadow-2xl relative overflow-hidden group cursor-pointer rounded-sm"
+                onClick={() => setShowPopup(true)}
+              >
                 <iframe 
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3767.1437145744!2d72.96442657597147!3d19.232585247012586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b93a6e839e53%3A0x67399479b187515!2sGodrej%20Exquisite%2C%20Thane!5e0!3m2!1sen!2sin!4v1713876000000!5m2!1sen!2sin" 
-                  className="absolute inset-0 w-full h-full border-0 grayscale opacity-90 hover:grayscale-0 transition-all duration-700"
+                  className="absolute inset-0 w-full h-full border-0 grayscale opacity-95 transition-all duration-1000 pointer-events-none group-hover:grayscale-0"
                   allowFullScreen={true}
                   loading="lazy" 
                   referrerPolicy="no-referrer-when-downgrade"
                   title="Godrej Exquisite Location Map"
                 />
+                {/* Styled Map Overlay */}
+                <div className="absolute inset-0 flex items-center justify-center bg-black/5 pointer-events-none">
+                   <motion.div 
+                     initial={{ opacity: 0.9, y: 0 }}
+                     whileInView={{ opacity: 1 }}
+                     className="bg-white p-8 md:p-16 shadow-2xl rounded-sm text-center space-y-8 max-w-[90%] border border-slate-100"
+                   >
+                      <div className="flex justify-center">
+                        <div className="w-20 h-20 md:w-24 md:h-24 border-[3px] border-slate-900 rounded-full flex items-center justify-center">
+                           <MapPin className="w-10 h-10 md:w-12 md:h-12 text-slate-900" />
+                        </div>
+                      </div>
+                      <div className="space-y-4">
+                        <h3 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter uppercase leading-none">Ghodbunder Rd, Thane</h3>
+                        <p className="text-[11px] md:text-[13px] font-black text-slate-400 uppercase tracking-[0.5em]">Prime Residential Zone</p>
+                      </div>
+                      <div className="w-24 h-1 bg-slate-900 mx-auto" />
+                   </motion.div>
+                </div>
               </div>
 
-              <div className="space-y-8">
-                 <h3 className="text-2xl font-bold text-slate-900 uppercase tracking-tighter">Nearby Landmarks</h3>
-                 <div className="space-y-6">
+              <div className="space-y-10 lg:space-y-16">
+                 <h3 className="text-3xl lg:text-4xl font-bold text-slate-900 uppercase tracking-tighter leading-none">Connectivity</h3>
+                 <div className="space-y-8 md:space-y-10">
                    {connectivity.map((item, i) => (
-                     <div key={i} className="flex gap-4 items-center group">
-                        <div className="w-14 h-14 bg-slate-50 flex items-center justify-center text-[#c3aa62] shadow-sm group-hover:bg-[#c3aa62] group-hover:text-white transition-all rounded-sm">
+                     <div 
+                        key={i} 
+                        className="flex gap-6 items-center group cursor-pointer"
+                        onClick={() => setShowPopup(true)}
+                     >
+                        <div className="w-16 h-16 bg-slate-50 flex items-center justify-center text-[#c3aa62] shadow-sm group-hover:bg-[#c3aa62] group-hover:text-white transition-all duration-500 rounded-sm">
                            {item.icon}
                         </div>
-                        <div className="space-y-0.5">
-                           <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest">{item.title}</p>
-                           <p className="text-base font-bold text-slate-700">{item.text}</p>
+                        <div className="space-y-1">
+                           <p className="text-[10px] md:text-[11px] font-black text-slate-300 uppercase tracking-[0.2em]">{item.title}</p>
+                           <p className="text-lg md:text-xl font-bold text-slate-700 tracking-tight">{item.text}</p>
                         </div>
                      </div>
                    ))}
                  </div>
-                 <div className="pt-4">
-                    <a 
-                      href="https://maps.app.goo.gl/GodrejExquisiteThane" 
-                      target="_blank" 
-                      className="w-full bg-[#c3aa62] text-white py-4 font-bold uppercase tracking-[0.2em] text-[11px] shadow-2xl flex items-center justify-center gap-4 hover:brightness-110 active:scale-95 transition-all"
+                 <div className="pt-6">
+                    <button 
+                      onClick={() => setShowPopup(true)}
+                      className="w-full bg-[#c3aa62] text-white py-5 font-black uppercase tracking-[0.2em] text-[12px] shadow-2xl flex items-center justify-center gap-5 hover:brightness-110 active:scale-[0.98] transition-all rounded-sm"
                     >
-                      <Navigation className="w-4 h-4" />
+                      <Navigation className="w-5 h-5" />
                       Navigate To Project
-                    </a>
+                    </button>
                  </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Footer - Ultra Dark */}
-        <footer className="bg-[#050505] text-white py-16 md:py-20 px-6 w-full">
-          <div className="max-w-[1536px] mx-auto space-y-16">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-10 pb-12 border-b border-white/5">
-               <img src="/logo.svg" alt="Godrej Exquisite Logo" className="h-12 brightness-0 invert" />
-               <div className="flex flex-wrap justify-center gap-10 text-[9px] font-bold uppercase tracking-[0.4em] text-white/30">
+        {/* Footer - Refined Light Theme */}
+        <footer className="bg-[#FDFDFD] text-slate-600 py-20 md:py-32 px-6 w-full border-t border-slate-100">
+          <div className="max-w-[1536px] mx-auto space-y-20 md:space-y-32">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-12 pb-16 border-b border-slate-100">
+               <img 
+                 onContextMenu={(e) => e.preventDefault()}
+                 src="/logo.svg" alt="Godrej Exquisite Logo" className="h-11 md:h-12" 
+               />
+               <div className="flex flex-wrap justify-center gap-8 md:gap-12 text-[10px] md:text-[11px] font-black uppercase tracking-[0.3em] text-slate-300">
                   <a href="#overview" className="hover:text-[#c3aa62] transition-colors">Overview</a>
                   <a href="#pricing" className="hover:text-[#c3aa62] transition-colors">Pricing</a>
                   <a href="#plans" className="hover:text-[#c3aa62] transition-colors">Plans</a>
@@ -527,22 +581,22 @@ export default function LandingPage() {
                   <Link href="/privacy-policy" className="hover:text-[#c3aa62] transition-colors">Privacy Policy</Link>
                </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start text-center md:text-left">
-              <div className="space-y-6">
-                <p className="text-[10px] font-black uppercase tracking-[0.5em] text-[#c3aa62]">MahaRERA: P51700024496</p>
-                <p className="text-[9px] leading-loose text-white/20 font-medium uppercase tracking-[0.2em] max-w-lg mx-auto md:mx-0">
-                  Disclaimer: The images shown are for representational purposes only. All dimensions and specifications are as per the agreement for sale.
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-20 md:gap-32 items-start text-center md:text-left">
+              <div className="space-y-8">
+                <p className="text-[11px] md:text-[12px] font-black uppercase tracking-[0.4em] text-[#c3aa62]">MahaRERA: P51700024496</p>
+                <p className="text-[10px] md:text-[11px] leading-loose text-slate-400 font-bold uppercase tracking-[0.2em] max-w-xl mx-auto md:mx-0">
+                  Disclaimer: The images shown are for representational purposes only. All dimensions and specifications are as per the agreement for sale. Godrej Exquisite is a project by Godrej Properties.
                 </p>
               </div>
-              <div className="md:text-right space-y-4">
-                <p className="text-[9px] font-black tracking-[0.3em] text-white/20 uppercase">Experience Centre:</p>
-                <p className="text-2xl font-bold text-white tracking-tighter">Godrej Exquisite, Thane (W)</p>
-                <div className="flex md:justify-end gap-8 pt-4 justify-center">
-                   <a href="https://wa.me/918828456094" className="text-white/40 hover:text-[#25D366] transition-all hover:scale-110" aria-label="WhatsApp Us"><WhatsAppIcon /></a>
-                   <a href="tel:+918828456094" className="text-white/40 hover:text-[#c3aa62] transition-all hover:scale-110" aria-label="Call Us"><Phone className="w-7 h-7" /></a>
-                   <a href="mailto:info@godrejexquisite.com" className="text-white/40 hover:text-[#c3aa62] transition-all hover:scale-110" aria-label="Email Us"><Mail className="w-7 h-7" /></a>
+              <div className="md:text-right space-y-6">
+                <p className="text-[10px] font-black tracking-[0.4em] text-slate-300 uppercase">Experience Centre:</p>
+                <p className="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 tracking-tighter leading-none">Godrej Exquisite, Thane (W)</p>
+                <div className="flex md:justify-end gap-10 pt-8 justify-center">
+                   <a href="https://wa.me/918828456094" className="text-slate-300 hover:text-[#25D366] transition-all hover:scale-110" aria-label="WhatsApp Us"><WhatsAppIcon /></a>
+                   <a href="tel:+918828456094" className="text-slate-300 hover:text-[#c3aa62] transition-all hover:scale-110" aria-label="Call Us"><Phone className="w-8 h-8 md:w-10 md:h-10" /></a>
+                   <a href="mailto:info@godrejexquisite.com" className="text-slate-300 hover:text-[#c3aa62] transition-all hover:scale-110" aria-label="Email Us"><Mail className="w-8 h-8 md:w-10 md:h-10" /></a>
                 </div>
-                <p className="text-[8px] font-bold text-white/5 tracking-[0.6em] uppercase pt-12">© 2026 Godrej Properties. All Rights Reserved.</p>
+                <p className="text-[9px] font-bold text-slate-200 tracking-[0.6em] uppercase pt-20">© 2026 Godrej Properties. All Rights Reserved.</p>
               </div>
             </div>
           </div>
@@ -550,24 +604,24 @@ export default function LandingPage() {
       </main>
 
       {/* Floating Buttons - Hidden on Mobile to avoid conflict with sticky bar */}
-      <div className="fixed bottom-12 right-6 md:right-12 hidden lg:flex flex-col gap-5 z-[100]">
-        <motion.a href="https://wa.me/918828456094" whileHover={{ scale: 1.1 }} className="bg-[#25D366] text-white p-6 rounded-full shadow-2xl flex items-center justify-center" aria-label="WhatsApp Chat">
+      <div className="fixed bottom-12 right-6 md:right-12 hidden lg:flex flex-col gap-6 z-[100]">
+        <motion.a href="https://wa.me/918828456094" whileHover={{ scale: 1.1 }} className="bg-[#25D366] text-white p-6 rounded-full shadow-2xl flex items-center justify-center hover:brightness-110 transition-all" aria-label="WhatsApp Chat">
           <WhatsAppIcon />
         </motion.a>
-        <motion.button onClick={() => setShowPopup(true)} whileHover={{ scale: 1.1 }} className="bg-[#c3aa62] text-white p-6 rounded-full shadow-2xl flex items-center justify-center" aria-label="Call Expert">
+        <motion.button onClick={() => setShowPopup(true)} whileHover={{ scale: 1.1 }} className="bg-[#c3aa62] text-white p-6 rounded-full shadow-2xl flex items-center justify-center hover:brightness-110 transition-all" aria-label="Call Expert">
           <Phone className="w-8 h-8" />
         </motion.button>
       </div>
 
       {/* Mobile Sticky Actions */}
       <div className="fixed bottom-0 w-full z-[150] flex lg:hidden shadow-2xl">
-        <a href="tel:+918828456094" className="flex-1 bg-white text-slate-900 py-7 flex items-center justify-center gap-4 font-bold uppercase tracking-widest text-[11px] border-r border-slate-50">
+        <a href="tel:+918828456094" className="flex-1 bg-white text-slate-900 py-6 md:py-8 flex items-center justify-center gap-4 font-black uppercase tracking-widest text-[11px] md:text-[13px] border-r border-slate-50">
           <Phone className="w-5 h-5 text-[#c3aa62]" /> Call
         </a>
-        <a href="https://wa.me/918828456094" className="flex-1 bg-[#25D366] text-white py-7 flex items-center justify-center gap-4 font-bold uppercase tracking-widest text-[11px]">
+        <a href="https://wa.me/918828456094" className="flex-1 bg-[#25D366] text-white py-6 md:py-8 flex items-center justify-center gap-4 font-black uppercase tracking-widest text-[11px] md:text-[13px]">
           <WhatsAppIcon /> <span>WhatsApp</span>
         </a>
-        <button onClick={() => setShowPopup(true)} className="flex-1 bg-[#c3aa62] text-white py-7 flex items-center justify-center gap-4 font-bold uppercase tracking-widest text-[11px]">
+        <button onClick={() => setShowPopup(true)} className="flex-1 bg-[#c3aa62] text-white py-6 md:py-8 flex items-center justify-center gap-4 font-black uppercase tracking-widest text-[11px] md:text-[13px]">
           <Mail className="w-5 h-5" /> Enquire
         </button>
       </div>
