@@ -115,10 +115,10 @@ export default function LandingPage() {
   };
 
   const pricingData = [
-    { type: "2 BHK Premium", area: "655 Sq.Ft.", price: "₹ 1.79 Cr*" },
-    { type: "2 BHK Luxe", area: "724 Sq.Ft.", price: "₹ 1.95 Cr*" },
-    { type: "3 BHK Premium", area: "772 Sq.Ft.", price: "₹ 2.10 Cr*" },
-    { type: "3 BHK Luxe", area: "922 Sq.Ft.", price: "₹ 2.52 Cr*" }
+    { type: "2 BHK Premium", area: "655 Sq.Ft.", price: "₹ 1.65 Cr*" },
+    { type: "2 BHK Luxe", area: "724 Sq.Ft.", price: "₹ 1.79 Cr*" },
+    { type: "3 BHK Premium", area: "772 Sq.Ft.", price: "₹ 1.92 Cr*" },
+    { type: "3 BHK Luxe", area: "922 Sq.Ft.", price: "₹ 2.35 Cr*" }
   ];
 
   return (
