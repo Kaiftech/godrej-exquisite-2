@@ -94,19 +94,17 @@ export default function LandingPage() {
     };
 
     try {
-      const response = await fetch(webhookUrl, {
+      fetch(webhookUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
+        keepalive: true, // Ensures request completes even if page changes
       });
-
-      if (response.ok) {
-        router.push("/thank-you");
-      } else {
-        router.push("/thank-you");
-      }
+      
+      // Redirect immediately to provide instant feedback
+      router.push("/thank-you");
     } catch (error) {
       router.push("/thank-you");
     } finally {
