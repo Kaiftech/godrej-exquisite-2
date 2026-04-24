@@ -634,7 +634,7 @@ export default function LandingPage() {
                   <a href="tel:+918828456094" className="text-slate-300 hover:text-[#c3aa62] transition-all hover:scale-110" aria-label="Call Us"><Phone className="w-8 h-8 md:w-10 md:h-10" /></a>
                   <a href="mailto:info@godrejexquisite.com" className="text-slate-300 hover:text-[#c3aa62] transition-all hover:scale-110" aria-label="Email Us"><Mail className="w-8 h-8 md:w-10 md:h-10" /></a>
                 </div>
-                <p className="text-[9px] font-bold text-slate-200 tracking-[0.6em] uppercase pt-20">© 2026 Godrej Properties. All Rights Reserved.</p>
+                <p className="text-[9px] font-bold text-slate-200 tracking-[0.6em] uppercase pt-20">© 2026 All Rights Reserved.</p>
               </div>
             </div>
           </div>
