@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { CheckCircle2, Home, Phone, ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
+import Script from "next/script";
 
 const WhatsAppIcon = () => (
   <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current">
@@ -13,7 +14,16 @@ const WhatsAppIcon = () => (
 export default function ThankYouPage() {
   return (
     <div className="min-h-screen bg-white flex items-center justify-center p-6 font-sans antialiased overflow-hidden selection:bg-[#c3aa62] selection:text-white">
-      <motion.div 
+      {/* Event snippet for godrej-exquisite conversion page */}
+      <Script id="google-conversion-tag" strategy="afterInteractive">
+        {`
+          gtag('event', 'conversion', {
+              'send_to': 'AW-18017530682/qWDRCMKV3qEcELrmto9D',
+              'value': 1.0,
+              'currency': 'INR'
+          });
+        `}
+      </Script>      <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
