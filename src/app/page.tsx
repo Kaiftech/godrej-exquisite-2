@@ -102,7 +102,7 @@ export default function LandingPage() {
         body: JSON.stringify(payload),
         keepalive: true, // Ensures request completes even if page changes
       });
-      
+
       // Redirect immediately to provide instant feedback
       router.push("/thank-you");
     } catch (error) {
@@ -311,7 +311,7 @@ export default function LandingPage() {
                   <p className="text-[14px] lg:text-[13px] text-slate-700 font-medium">Land Parcel 4 Acres</p>
                   <p className="text-[14px] lg:text-[13px] text-slate-700 font-medium">Towers 3 Towers</p>
                   <p className="text-[14px] lg:text-[13px] text-slate-700 font-medium">Possession Nearby</p>
-                  <p className="text-[14px] lg:text-[13px] text-slate-700 font-medium">Payment 25:75 Plan</p>
+                  <p className="text-[14px] lg:text-[13px] text-slate-700 font-medium">Crafted for Elegance</p>
                 </div>
               </div>
 
@@ -319,7 +319,7 @@ export default function LandingPage() {
               <div className="p-4 lg:p-3 space-y-3 lg:space-y-2">
                 {[
                   "Spot Booking Offer",
-                  "25X4 Payment Plan",
+                  "Upgrade Your Lifestyle",
                   "Stamp Duty Benefit"
                 ].map((text, i) => (
                   <motion.button
